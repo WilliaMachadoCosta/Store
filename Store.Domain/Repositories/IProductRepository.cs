@@ -1,4 +1,5 @@
 ﻿using Store.Domain.Entities;
+using Store.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace Store.Domain.Repositories
         Task<Product> FindByName(string name);
         Task<Product> Create(Product product);
         Task<Product> Update(Product product);
-        Task<bool> Delete(long id);
+        Task Remove(Product product);
     }
 }

@@ -4,7 +4,7 @@ using Store.Infra.Mapping;
 
 namespace Store.Infra.DataContext
 {
-    internal class ProductContext: DbContext
+    public class ProductContext: DbContext
     {
         public ProductContext(DbContextOptions options) : base(options) =>
             Database.EnsureCreated();
