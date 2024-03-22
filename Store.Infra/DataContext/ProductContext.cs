@@ -15,5 +15,10 @@ namespace Store.Infra.DataContext
         }
 
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseInMemoryDatabase("Store");
+        }
     }
 }

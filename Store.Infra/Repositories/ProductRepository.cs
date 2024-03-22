@@ -16,11 +16,11 @@ namespace Store.Infra.Repositories
         public ProductRepository(ProductContext context) =>
             productContext = context;
 
-        public Task<Product> Create(Product product)
+        public async Task<Product> Create(Product product)
         {
             productContext.Add(product);
-            productContext.SaveChanges();
-            return Task.FromResult(product);
+            await productContext.SaveChangesAsync();
+            return product;
         }
 
         public async Task<IEnumerable<Product>> FindAll()
