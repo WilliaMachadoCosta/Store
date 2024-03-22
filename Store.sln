@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-Domain", "0-Domain", "{E26D2B1C-60E6-4E59-8039-395FA7132662}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Infra", "1-Infra", "{FF6A0C6A-D0C5-4A38-B481-040EC2400A25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Test", "2-Test", "{6C2E6169-AF98-479C-9783-C533A02CCF99}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-WebApi", "3-WebApi", "{A989E98E-4E9A-435E-B265-3DBA522B2D7F}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {080D7011-81A9-435E-AF97-455E8A50548C}
+	EndGlobalSection
+EndGlobal
