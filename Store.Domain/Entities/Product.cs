@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Store.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace Store.Domain.Entities
 {
-    public class Product
+    public class Product: Entity
     {
         public Product(
            string name, string description, string image, decimal value, decimal quantity)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("O nome do produto deve ser fornecido.", nameof(name));
+                throw new ArgumentException("The product name must be provided.", nameof(name));
 
             if (value <= 0)
-                throw new ArgumentException("O valor do produto deve ser maior que zero.", nameof(value));
+                throw new ArgumentException("The product value must be greater than zero.", nameof(value));
 
             if (quantity < 0)
-                throw new ArgumentException("A quantidade do produto não pode ser negativa.", nameof(quantity));
+                throw new ArgumentException("The product quantity cannot be negative", nameof(quantity));
 
 
             Name = name;
