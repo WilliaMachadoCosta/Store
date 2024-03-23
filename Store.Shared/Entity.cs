@@ -2,7 +2,12 @@
 {
     public abstract class Entity 
     {
-        public int Id { get; private set; }
+        public Entity()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; private set; }
         public DateTime LastUpdated { get; set; }
         public DateTime CreatedDate { get; set; }
     }

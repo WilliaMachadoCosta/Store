@@ -18,7 +18,7 @@ namespace Store.Domain.Entities
             if (value <= 0)
                 throw new ArgumentException("The product value must be greater than zero.", nameof(value));
 
-            if (quantityOnHand < 0)
+            if (quantityOnHand <= 0)
                 throw new ArgumentException("The product quantity cannot be negative", nameof(quantityOnHand));
 
 

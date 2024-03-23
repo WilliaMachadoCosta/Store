@@ -66,12 +66,12 @@ namespace Store.Tests
             var product = new Product("Product 1", "Description 1", "image1.jpg", 10.0m, 100);
 
             var mockRepository = new Mock<IProductRepository>();
-            mockRepository.Setup(repo => repo.Create(product)).ReturnsAsync(product);
+            mockRepository.Setup(repo => repo.CreateAsync(product)).ReturnsAsync(product);
 
             var repository = mockRepository.Object;
 
             // Act
-            var result = await repository.Create(product);
+            var result = await repository.CreateAsync(product);
 
             // Assert
             Assert.IsNotNull(result);
