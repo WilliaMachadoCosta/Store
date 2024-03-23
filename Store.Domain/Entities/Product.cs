@@ -10,7 +10,7 @@ namespace Store.Domain.Entities
     public class Product: Entity
     {
         public Product(
-           string name, string description, string image, decimal value, decimal quantity)
+           string name, string description, string image, decimal value, decimal quantityOnHand)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("The product name must be provided.", nameof(name));
@@ -18,15 +18,15 @@ namespace Store.Domain.Entities
             if (value <= 0)
                 throw new ArgumentException("The product value must be greater than zero.", nameof(value));
 
-            if (quantity < 0)
-                throw new ArgumentException("The product quantity cannot be negative", nameof(quantity));
+            if (quantityOnHand < 0)
+                throw new ArgumentException("The product quantity cannot be negative", nameof(quantityOnHand));
 
 
             Name = name;
             Description = description;
             Image = image;
             Value = value;
-            QuantityOnHand = quantity;
+            QuantityOnHand = quantityOnHand;
         }
 
         public string Name { get; private set; }

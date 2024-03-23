@@ -16,7 +16,7 @@ namespace Store.Infra.Repositories
         public ProductRepository(ProductContext context) =>
             productContext = context;
 
-        public async Task<Product> Create(Product product)
+        public async Task<Product> CreateAsync(Product product)
         {
             productContext.Add(product);
             await productContext.SaveChangesAsync();
@@ -25,7 +25,8 @@ namespace Store.Infra.Repositories
 
         public async Task<IEnumerable<Product>> FindAll()
         {
-            return await productContext.Products.AsNoTracking().OrderBy(product => product.Id).ToListAsync();
+            var products = await productContext.Products.AsNoTracking().OrderBy(product => product.Id).ToListAsync();
+            return products;
         }
 
         public async Task<Product?> FindByName(string name)
