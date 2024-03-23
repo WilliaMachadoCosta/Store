@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Store.Infra.Repositories
 {
@@ -27,6 +28,11 @@ namespace Store.Infra.Repositories
         {
             var products = await productContext.Products.AsNoTracking().OrderBy(product => product.Id).ToListAsync();
             return products;
+        }
+
+        public async Task<Product> FindById(Guid id)
+        {
+            return await productContext.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Product?> FindByName(string name)

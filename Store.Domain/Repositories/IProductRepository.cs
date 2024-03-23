@@ -12,6 +12,7 @@ namespace Store.Domain.Repositories
     {
         Task<IEnumerable<Product>> FindAll();
         Task<Product> FindByName(string name);
+        Task<Product> FindById( Guid id);
         Task<Product> CreateAsync(Product product);
         Task<Product> Update(Product product);
         Task Remove(Product product);
