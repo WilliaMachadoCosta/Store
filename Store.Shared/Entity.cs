@@ -8,5 +8,7 @@
         }
 
         public Guid Id { get; private set; }
+        //public DateTime LastUpdated { get; set; }
+        //public DateTime CreatedDate { get; set; }
     }
 }

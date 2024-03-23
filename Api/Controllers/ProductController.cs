@@ -47,29 +47,22 @@ namespace Api.Controllers
             return mapper.Map<ProductViewModel>(product);
         }
 
-        //[HttpPut]
-        //[Route("v1/products/{id}")]
-        //public async Task<Product> Update(int id, ProductViewModel product)
-        //{
-        //    var existingProduct = await repository.get
-        //    if (existingProduct == null)
-        //    {
-        //        // Produto não encontrado, você pode retornar um código de status HTTP adequado
-        //        // e uma mensagem de erro
-        //        return NotFound(); // Ou BadRequest(), por exemplo
-        //    }
+        [HttpPut]
+        [Route("v1/products/{id}")]
+        public async Task<IActionResult> Update(Guid id, ProductViewModel product)
+        {
+            var existingProduct = await repository.FindById(id);
+            if (existingProduct == null)
+            {
+                return NotFound(); 
+            }
 
-        //    // Atualize apenas as propriedades relevantes do produto existente com base nos dados recebidos
-        //    existingProduct.Name = product.Name;
-        //    existingProduct.Description = product.Description;
-        //    existingProduct.Price = product.Price;
-        //    // Adicione outras propriedades que você deseja atualizar
+            existingProduct.UpdateDetails(product.Name, product.Description, product.Image, product.Value);
 
-        //    // Agora, atualize o produto no repositório
-        //    await repository.Update(existingProduct);
+            await repository.Update(existingProduct);
 
-        //    return existingProduct;
-        //}
+            return (IActionResult)existingProduct;
+        }
 
 
         [HttpDelete]
