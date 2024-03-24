@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Store.Domain.Entities;
 using Store.Domain.Repositories;
+using Store.Infra.Repositories;
 using Store.Shared;
 using System;
 using System.Collections.Generic;
@@ -34,12 +35,30 @@ namespace Api.Controllers
         [HttpGet]
         [Route("v1/products")]
         [ResponseCache(Duration = 15)]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetProducts(
+        string orderBy = "Id", int? skip = null, int? take = null)
         {
-            var products = await _repository.FindAll();
+            Func<IQueryable<Product>, IOrderedQueryable<Product>> orderByFunc = null;
+
+            switch (orderBy.ToLower())
+            {
+                case "id":
+                    orderByFunc = q => q.OrderBy(p => p.Id);
+                    break;
+                case "name":
+                    orderByFunc = q => q.OrderBy(p => p.Name);
+                    break;
+                default:
+                    orderByFunc = q => q.OrderBy(p => p.Id);
+                    break;
+            }
+
+            var products = await _repository.FindAll(orderByFunc, skip, take);
             var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(products);
+
             return Ok(Result<IEnumerable<ProductViewModel>>.SuccessResult(productViewModels));
         }
+      
 
         [HttpGet]
         [Route("v1/products/{name}")]

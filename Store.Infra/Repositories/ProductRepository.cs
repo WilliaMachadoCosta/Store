@@ -24,11 +24,31 @@ namespace Store.Infra.Repositories
             return product;
         }
 
-        public async Task<IEnumerable<Product>> FindAll()
+        public async Task<IEnumerable<Product>> FindAll(
+        Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null,
+        int? skip = null,
+        int? take = null)
         {
-            var products = await productContext.Products.AsNoTracking().OrderBy(product => product.Id).ToListAsync();
-            return products;
+            IQueryable<Product> query = productContext.Products.AsNoTracking();
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return await query.ToListAsync();
         }
+
 
         public async Task<Product> FindById(Guid id)
         {

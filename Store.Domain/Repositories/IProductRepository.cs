@@ -10,7 +10,10 @@ namespace Store.Domain.Repositories
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> FindAll();
+        Task<IEnumerable<Product>> FindAll(
+            Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null,
+            int? skip = null,
+            int? take = null);
         Task<Product> FindByName(string name);
 
         Task<Product> FindById( Guid id);

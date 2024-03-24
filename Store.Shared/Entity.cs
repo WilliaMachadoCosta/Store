@@ -5,6 +5,8 @@
         public Entity()
         {
             Id = Guid.NewGuid();
+            LastUpdated = DateTime.UtcNow;
+            CreatedDate = DateTime.UtcNow;
         }
 
         public Guid Id { get; private set; }

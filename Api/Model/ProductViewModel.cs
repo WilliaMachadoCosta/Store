@@ -8,6 +8,7 @@ namespace Api.Model
         public string Image { get; set; }
         public string Description { get; set; }
         public decimal QuantityOnHand { get; set; }
-        public decimal Value { get; set; }  
+        public decimal Value { get; set; }
+     
     }
 }
