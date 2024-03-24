@@ -30,17 +30,18 @@ namespace Store.Infra.Mapping
 
             builder.Property(p => p.CreatedDate).HasColumnType("datetime");
 
+            DateTime yesterday = DateTime.UtcNow.AddDays(-1);
 
             builder.HasData(
                 new Product("COPO QUENCHER CITRON TIE DYE", "COPO QUENCHER - STANLEY HIDRATE A SUA MELHOR VERSÃO", "image1", 315.00m, 20)
                 {
                     LastUpdated = DateTime.UtcNow,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = yesterday
                 },
                 new Product("COPO TERMICO EVERYDAY STANLEY", "como o próprio nome já denuncia, o Copo Térmico Everyday Stanley 296ml é o seu companheiro", "image2", 185.00m, 30)
                 {
                     LastUpdated = DateTime.UtcNow,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = yesterday
                 },
                 new Product("CANECA TERMICA DE CERVEJA STANLEY", "Nós da Stanley valorizamos muito os momentos de descontração", "image3", 220.00m, 10)
                 {

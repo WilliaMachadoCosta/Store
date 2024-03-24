@@ -1,14 +1,9 @@
 ﻿using Api.Model;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Store.Domain.Entities;
 using Store.Domain.Repositories;
-using Store.Infra.Repositories;
 using Store.Shared;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -23,45 +18,9 @@ namespace Api.Controllers
             _repository = repository;
         }
 
-        [HttpPost]
-        [Route("v1/products")]
-        public async Task<IActionResult> Add(ProductViewModel product)
-        {
-            var productMap = _mapper.Map<Product>(product);
-            await _repository.CreateAsync(productMap);
-            return Ok(Result<Product>.SuccessResult(productMap));
-        }
-
         [HttpGet]
-        [Route("v1/products")]
+        [Route("v1/products/byname/{name}")]
         [ResponseCache(Duration = 15)]
-        public async Task<IActionResult> GetProducts(
-        string orderBy = "Id", int? skip = null, int? take = null)
-        {
-            Func<IQueryable<Product>, IOrderedQueryable<Product>> orderByFunc = null;
-
-            switch (orderBy.ToLower())
-            {
-                case "id":
-                    orderByFunc = q => q.OrderBy(p => p.Id);
-                    break;
-                case "name":
-                    orderByFunc = q => q.OrderBy(p => p.Name);
-                    break;
-                default:
-                    orderByFunc = q => q.OrderBy(p => p.Id);
-                    break;
-            }
-
-            var products = await _repository.FindAll(orderByFunc, skip, take);
-            var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(products);
-
-            return Ok(Result<IEnumerable<ProductViewModel>>.SuccessResult(productViewModels));
-        }
-      
-
-        [HttpGet]
-        [Route("v1/products/{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
             var product = await _repository.FindByName(name);
@@ -70,6 +29,57 @@ namespace Api.Controllers
 
             var productViewModel = _mapper.Map<ProductViewModel>(product);
             return Ok(Result<ProductViewModel>.SuccessResult(productViewModel));
+        }
+
+        [HttpGet]
+        [Route("v1/products/{id}")]
+        [ResponseCache(Duration = 15)]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var product = await _repository.FindById(id);
+            if (product == null)
+                return NotFound(Result<ProductViewModel>.FailureResult("Product not found."));
+
+            var productViewModel = _mapper.Map<ProductViewModel>(product);
+            return Ok(Result<ProductViewModel>.SuccessResult(productViewModel));
+        }
+
+        [HttpGet]
+        [Route("v1/products")]
+        [ResponseCache(Duration = 15)]
+        public async Task<IActionResult> GetProducts(
+           string orderBy = "Id", int? skip = null, int? take = null, bool isDescending = false)
+        {
+            Func<IQueryable<Product>, IOrderedQueryable<Product>> orderByFunc = null;
+
+            switch (orderBy.ToLower())
+            {
+                case "id":
+                    orderByFunc = q => isDescending ? q.OrderByDescending(p => p.Id) : q.OrderBy(p => p.Id);
+                    break;
+                case "name":
+                    orderByFunc = q => isDescending ? q.OrderByDescending(p => p.Name) : q.OrderBy(p => p.Name);
+                    break;
+                case "date":
+                    orderByFunc = q => isDescending ? q.OrderByDescending(p => p.CreatedDate) : q.OrderBy(p => p.CreatedDate);
+                    break;
+                default:
+                    orderByFunc = q => isDescending ? q.OrderByDescending(p => p.Id) : q.OrderBy(p => p.Id);
+                    break;
+            }
+
+            var products = await _repository.FindAll(orderByFunc, skip, take);
+
+            return Ok(Result<IEnumerable<Product>>.SuccessResult(products));
+        }
+
+        [HttpPost]
+        [Route("v1/products")]
+        public async Task<IActionResult> Add(ProductViewModel product)
+        {
+            var productMap = _mapper.Map<Product>(product);
+            await _repository.CreateAsync(productMap);
+            return Ok(Result<Product>.SuccessResult(productMap));
         }
 
         [HttpPut]

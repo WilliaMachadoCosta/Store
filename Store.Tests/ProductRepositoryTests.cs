@@ -1,14 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Moq;
+﻿using Moq;
 using Store.Domain.Entities;
 using Store.Domain.Repositories;
-using Store.Infra.DataContext;
-using Store.Infra.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Store.Tests
 {

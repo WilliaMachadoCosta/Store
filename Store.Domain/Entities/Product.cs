@@ -12,11 +12,7 @@ namespace Store.Domain.Entities
         public Product(
            string name, string description, string image, decimal value, decimal quantityOnHand)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("The product name must be provided.", nameof(name));
-
-            if (value <= 0)
-                throw new ArgumentException("The product value must be greater than zero.", nameof(value));
+            ValidateProductDetails(name, value);
 
             if (quantityOnHand <= 0)
                 throw new ArgumentException("The product quantity cannot be negative", nameof(quantityOnHand));
@@ -63,11 +59,7 @@ namespace Store.Domain.Entities
 
         public void UpdateDetails(string name, string description, string image, decimal value)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("The product name must be provided.", nameof(name));
-
-            if (value <= 0)
-                throw new ArgumentException("The product value must be greater than zero.", nameof(value));
+            ValidateProductDetails(name, value);
 
             Name = name;
             Description = description;
@@ -78,6 +70,15 @@ namespace Store.Domain.Entities
         public bool IsInStock()
         {
             return QuantityOnHand > 0;
+        }
+
+        private void ValidateProductDetails(string name, decimal value)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("The product name must be provided.", nameof(name));
+
+            if (value <= 0)
+                throw new ArgumentException("The product value must be greater than zero.", nameof(value));
         }
 
 

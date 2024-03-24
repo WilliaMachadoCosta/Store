@@ -2,12 +2,6 @@
 using Store.Domain.Entities;
 using Store.Domain.Repositories;
 using Store.Infra.DataContext;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Store.Infra.Repositories
 {
@@ -25,9 +19,9 @@ namespace Store.Infra.Repositories
         }
 
         public async Task<IEnumerable<Product>> FindAll(
-        Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null,
-        int? skip = null,
-        int? take = null)
+     Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null,
+     int? skip = null,
+     int? take = null)
         {
             IQueryable<Product> query = productContext.Products.AsNoTracking();
 
@@ -48,6 +42,8 @@ namespace Store.Infra.Repositories
 
             return await query.ToListAsync();
         }
+
+
 
 
         public async Task<Product> FindById(Guid id)
