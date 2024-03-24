@@ -67,10 +67,16 @@ namespace Api.Controllers
 
         [HttpDelete]
         [Route("v1/products/")]
-        public async Task<IActionResult> Remove(ProductViewModel product)
+        public async Task<IActionResult> Remove(Guid id)
         {
-            var productMap = mapper.Map<Product>(product);
-            await repository.Remove(productMap);
+            var existingProduct = await repository.FindById(id);
+            if (existingProduct == null)
+            {
+                return NotFound("Product not found.");
+            }
+
+            await repository.Remove(existingProduct);
+
             return Ok("Product deleted successfully.");
         }
     }
