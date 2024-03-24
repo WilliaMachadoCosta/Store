@@ -18,12 +18,17 @@ namespace Store.Tests
             };
 
             var mockRepository = new Mock<IProductRepository>();
-            mockRepository.Setup(repo => repo.FindAll()).ReturnsAsync(products);
+            mockRepository.Setup(repo => repo.FindAll(
+            It.IsAny<Func<IQueryable<Product>, IOrderedQueryable<Product>>>(), // esperando a função orderByFunc
+                null, // skip
+                null // take
+                )).ReturnsAsync(products);
 
             var repository = mockRepository.Object;
 
             // Act
-            var result = await repository.FindAll();
+            var result = await repository.FindAll(null, null, null); // passando null para os novos parâmetros
+
 
             // Assert
             Assert.That(result.Count(), Is.EqualTo(products.Count));

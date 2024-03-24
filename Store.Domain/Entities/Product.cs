@@ -7,11 +7,9 @@ namespace Store.Domain.Entities
         public Product(
            string name, string description, string image, decimal value, decimal quantityOnHand)
         {
-            ValidateProductDetails(name, value);
-
-            if (quantityOnHand <= 0)
-                throw new ArgumentException("The product quantity cannot be negative", nameof(quantityOnHand));
-
+            ProductValidator.ValidateName(name);
+            ProductValidator.ValidateValue(value);
+            ProductValidator.ValidateNonNegativeQuantity(quantityOnHand);
 
             Name = name;
             Description = description;
@@ -26,35 +24,25 @@ namespace Store.Domain.Entities
         public decimal Value { get; private set; }
         public decimal QuantityOnHand { get; private set; }
 
-        public override string ToString()
-        {
-            return Name;
-        }
-
         public void DecreaseStockQuantity(decimal quantity)
         {
-            if (quantity < 0)
-                throw new ArgumentException("The quantity to be removed cannot be negative.", nameof(quantity));
+            ProductValidator.ValidateNonNegativeQuantity(quantity);
+            ProductValidator.ValidateSufficientStockForRemoval(QuantityOnHand, quantity);
 
-            if (QuantityOnHand - quantity < 0)
-                throw new InvalidOperationException("There is not enough stock to remove the specified quantity.");
-
-            QuantityOnHand -= quantity;
-            
+            QuantityOnHand -= quantity;           
         }
 
         public void IncreaseStockQuantity(decimal quantity)
         {
-            if (quantity <= 0)
-                throw new ArgumentException("The quantity to be added cannot be negative.", nameof(quantity));
+            ProductValidator.ValidateNonNegativeQuantity(quantity);
 
-            QuantityOnHand += quantity;
-            
+            QuantityOnHand += quantity;          
         }
 
         public void UpdateDetails(string name, string description, string image, decimal value)
         {
-            ValidateProductDetails(name, value);
+            ProductValidator.ValidateName(name);
+            ProductValidator.ValidateValue(value);
 
             Name = name;
             Description = description;
@@ -66,16 +54,6 @@ namespace Store.Domain.Entities
         {
             return QuantityOnHand > 0;
         }
-
-        private void ValidateProductDetails(string name, decimal value)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("The product name must be provided.", nameof(name));
-
-            if (value <= 0)
-                throw new ArgumentException("The product value must be greater than zero.", nameof(value));
-        }
-
 
     }
 }
