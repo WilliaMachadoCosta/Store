@@ -1,3 +1,4 @@
+
 # Projeto Avaliação Técnica - CRUD de Produtos
 
 Este projeto foi desenvolvido como parte de uma avaliação técnica, com o objetivo de criar uma API para realizar operações CRUD (Create, Read, Update, Delete) de produtos.
@@ -19,3 +20,4 @@ Esta solução é composta por 5 projetos, cada um com sua responsabilidade espe
 2. **Infra**: Responsável pela infraestrutura da aplicação, incluindo o acesso aos dados e a implementação do repositório utilizando o Entity Framework Core.
 3. **Shared**: Contém componentes compartilhados entre diferentes partes da aplicação, como constantes, enums, e utilitários.
 4. **Test**: Projeto que engloba os testes unitários para garantir o funcionamento adequado das funcionalidades implementadas.
+
