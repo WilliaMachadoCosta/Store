@@ -54,11 +54,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var devClient = "http://localhost:4200";
-app.UseCors(x => x
-.AllowAnyOrigin()
-.AllowAnyMethod()
-.AllowAnyHeader().WithOrigins(devClient));
+//var devClient = "http://localhost:4200";
+//app.UseCors(x => x
+//.AllowAnyOrigin()
+//.AllowAnyMethod()
+//.AllowAnyHeader().WithOrigins(devClient));
 
 app.UseHttpsRedirection();
 
