@@ -84,7 +84,7 @@ namespace Api.Controllers
 
         [HttpPut]
         [Route("v1/products/{id}")]
-        public async Task<IActionResult> Update(Guid id, ProductViewModel product)
+        public async Task<IActionResult> Update(Guid id, ProductBaseViewModel product)
         {
             var existingProduct = await _repository.FindById(id);
             if (existingProduct == null)
