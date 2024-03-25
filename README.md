@@ -9,6 +9,7 @@ Este projeto foi desenvolvido como parte de uma avaliação técnica, com o obje
 - **Padrões de Arquitetura**: Repository Pattern, Domain-Driven Design (DDD)
 - **Persistência de Dados**: Entity Framework Core (InMemory para este projeto)
 - **Abordagem de Desenvolvimento**: Code First
+- **GitHub Actions**: Pipe de testes acionado por Pull Request na branch Main
 
 ## Estrutura do Projeto
 
