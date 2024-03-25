@@ -9,7 +9,7 @@ using Store.Shared;
 namespace Store.Tests
 {
     [TestFixture]
-    public class ProductRepositoryTests
+    public class ProductIntegrationTests
     {
 
         private ProductContext _dbContext;
@@ -81,12 +81,10 @@ namespace Store.Tests
 
             // Assert
             Assert.IsNotNull(products);
-            Assert.IsTrue(products.Any(p => p.Name == "Product 1")); // Verifica se há um produto com o nome "Product 1"
-            Assert.IsTrue(products.Any(p => p.Name == "Product 2")); // Verifica se há um produto com o nome "Product 2"
-                                                                     // Adicione mais asserções conforme necessário para outras propriedades dos produtos
+            Assert.IsTrue(products.Any(p => p.Name == "Product 1")); 
+            Assert.IsTrue(products.Any(p => p.Name == "Product 2")); 
+                                                                     
         }
-
-
 
         [Test]
         public async Task FindProductByName_ShouldReturnProduct()
