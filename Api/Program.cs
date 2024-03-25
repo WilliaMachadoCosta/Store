@@ -1,6 +1,5 @@
 using Api.Model;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Store.Domain.Entities;
 using Store.Domain.Repositories;
