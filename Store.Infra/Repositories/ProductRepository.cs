@@ -43,9 +43,6 @@ namespace Store.Infra.Repositories
             return await query.ToListAsync();
         }
 
-
-
-
         public async Task<Product> FindById(Guid id)
         {
             return await productContext.Products.FirstOrDefaultAsync(p => p.Id == id);
